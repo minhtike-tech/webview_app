@@ -4,7 +4,7 @@ import datetime
 import plotly.express as px
 
 # --- PAGE CONFIGURATION ---
-st.set_page_config(page_title="Myanmar Market Sales Pro", page_icon="🇲🇲", layout="wide")
+st.set_page_config(page_title="Khaing's Market Sales", page_icon="🇲🇲", layout="wide")
 
 # --- AUTO CLEANUP OLD CACHED DATA ---
 if 'sales_history' in st.session_state:
@@ -67,7 +67,7 @@ def record_sale(product_name, qty, sale_type):
     ] -= qty
 
 # --- APP NAVIGATION ---
-st.sidebar.title("🇲🇲 Local Market Pro")
+st.sidebar.title("Khaing's Market❣️")
 st.sidebar.markdown("---")
 menu = ["🏠 Home / Dashboard", "🛒 Process Sales", "📦 Inventory Management", "📊 Market Analysis", "📜 Sales History"]
 choice = st.sidebar.radio("Navigation", menu)
@@ -240,4 +240,5 @@ elif choice == "📜 Sales History":
             data=csv,
             file_name='local_sales_history.csv',
             mime='text/csv',
+
         )
