@@ -14,12 +14,10 @@ st.set_page_config(page_title="Khaing's Market Sales", page_icon="🇲🇲", lay
 # --- HIDE STREAMLIT UI ---
 hide_st_style = """
             <style>
-            /* အပေါ်ညာဘက်ထောင့်ရှိ ခလုတ်များ အားလုံးကို အတင်းဖျောက်ရန် */
-            [data-testid="stHeaderActionElements"] {display: none !important;}
-            .stAppDeployButton {display: none !important;}
-            #MainMenu {visibility: hidden !important;}
-            /* အောက်ခြေရှိ Streamlit Footer ကို ဖျောက်ရန် */
-            footer {visibility: hidden !important;}
+            #MainMenu {visibility: hidden;} /* ညာဘက်အပေါ်က Menu ကို ဖျောက်ရန် */
+            footer {visibility: hidden;} /* အောက်ခြေက 'Made with Streamlit' စာသားကို ဖျောက်ရန် */
+            header {visibility: hidden;} /* 'Fork' ခလုတ် ပါဝင်သော Top Header တစ်ခုလုံးကို ဖျောက်ရန် */
+            .stDeployButton {display:none;} /* အောက်ခြေက floating deploy button ကို ဖျောက်ရန် */
             </style>
             """
 st.markdown(hide_st_style, unsafe_allow_html=True)
@@ -292,6 +290,7 @@ if db:
 
 else:
     st.error("Database နှင့် မချိတ်ဆက်နိုင်သေးပါ။")
+
 
 
 
