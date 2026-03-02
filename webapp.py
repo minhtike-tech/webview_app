@@ -12,10 +12,10 @@ st.set_page_config(page_title="Khaing's Market Sales", page_icon="🇲🇲", lay
 st.set_page_config(page_title="Khaing's Market Sales", page_icon="🇲🇲", layout="wide")
 
 # --- HIDE STREAMLIT UI ---
+# --- HIDE STREAMLIT UI ---
 hide_st_style = """
             <style>
             #MainMenu {visibility: hidden;}
-            header {visibility: hidden;}
             footer {visibility: hidden;}
             .stAppDeployButton {display:none;}
             </style>
@@ -290,3 +290,4 @@ if db:
 
 else:
     st.error("Database နှင့် မချိတ်ဆက်နိုင်သေးပါ။")
+
