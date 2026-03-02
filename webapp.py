@@ -12,8 +12,6 @@ st.set_page_config(page_title="Khaing's Market Sales", page_icon="🇲🇲", lay
 st.set_page_config(page_title="Khaing's Market Sales", page_icon="🇲🇲", layout="wide")
 
 # --- HIDE STREAMLIT UI ---
-# --- HIDE STREAMLIT UI ---
-# --- HIDE STREAMLIT UI ---
 hide_st_style = """
             <style>
             /* ညာဘက်အပေါ်ထောင့်ရှိ Fork, GitHub နှင့် Menu များကို ဖျောက်ရန် */
@@ -292,5 +290,6 @@ if db:
 
 else:
     st.error("Database နှင့် မချိတ်ဆက်နိုင်သေးပါ။")
+
 
 
