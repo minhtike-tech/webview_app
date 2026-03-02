@@ -4,9 +4,23 @@ import datetime
 import plotly.express as px
 import gspread
 from google.oauth2.service_account import Credentials
+import time  # နှောင့်နှေးချိန်လေးထည့်ရန် ထပ်တိုးထားသည်
 
 # --- PAGE CONFIGURATION ---
 st.set_page_config(page_title="Khaing's Market Sales", page_icon="🇲🇲", layout="wide")
+# --- PAGE CONFIGURATION ---
+st.set_page_config(page_title="Khaing's Market Sales", page_icon="🇲🇲", layout="wide")
+
+# --- HIDE STREAMLIT UI ---
+hide_st_style = """
+            <style>
+            #MainMenu {visibility: hidden;}
+            header {visibility: hidden;}
+            footer {visibility: hidden;}
+            .stAppDeployButton {display:none;}
+            </style>
+            """
+st.markdown(hide_st_style, unsafe_allow_html=True)
 
 # --- DATABASE CONNECTION ---
 @st.cache_resource
@@ -68,6 +82,13 @@ if db:
     def update_inventory_db(df):
         inv_sheet.clear()
         inv_sheet.update([df.columns.values.tolist()] + df.values.tolist())
+
+    # [အသစ်] Sales Sheet ပါ ရှင်းလင်းပေးမည့် Function
+    def clear_sales_db():
+        sales_sheet.clear()
+        # ခေါင်းစဉ်များကို ပြန်ထည့်ပေးခြင်း
+        headers = ['Transaction ID', 'Date', 'Product Name', 'Unit Price (MMK)', 'Quantity', 'Sale Type', 'Total Value (MMK)']
+        sales_sheet.append_row(headers)
 
     def record_sale(product_name, qty, sale_type, current_inventory):
         price = float(current_inventory.loc[current_inventory['Product Name'] == product_name, 'Price (MMK)'].values[0])
@@ -153,7 +174,7 @@ if db:
     # --- 3. INVENTORY MANAGEMENT ---
     elif choice == "📦 Inventory Management":
         st.title("Inventory Management")
-        tab1, tab2, tab3 = st.tabs(["➕ Add New Product", "🔄 Update Price/Stock", "❌ Delete Product"])
+        tab1, tab2, tab3 = st.tabs(["➕ Add New Product", "🔄 Update Price/Stock", "❌ Delete / Reset"])
         
         with tab1:
             with st.form("add_product"):
@@ -205,18 +226,27 @@ if db:
                 st.info("ဖျက်ရန် Product မရှိတော့ပါ။")
             else:
                 prod_to_delete = st.selectbox("Select Product to Delete", product_list_to_delete, key="del_single")
-                if st.button("Delete Selected Product", type="primary"):
+                if st.button("Delete Selected Product"):
                     df_after_delete = df_inventory[df_inventory['Product Name'] != prod_to_delete]
                     update_inventory_db(df_after_delete)
                     st.success(f"{prod_to_delete} ကို Database မှ ဖျက်လိုက်ပါပြီ။")
                     st.rerun()
                     
             st.markdown("---")
-            st.markdown("#### အားလုံးကို ဖျက်ရန် (Clear All)")
-            if st.button("Delete ALL Products", type="primary", use_container_width=True):
-                empty_df = pd.DataFrame(columns=['Product ID', 'Product Name', 'Price (MMK)', 'Stock'])
-                update_inventory_db(empty_df)
-                st.success("Product အားလုံးကို Database မှ ရှင်းလင်းလိုက်ပါပြီ။")
+            st.markdown("#### အားလုံးကို ဖျက်ရန် (Clear All Data)")
+            st.warning("သတိပြုရန်: ဤခလုတ်ကိုနှိပ်ပါက Inventory (ကုန်ပစ္စည်းများ) နှင့် Sales History (အရောင်းမှတ်တမ်းများ) အားလုံးကို Google Sheet မှ အပြီးတိုင် ဖျက်ပစ်ပါမည်။ Dashboard ရှိ စာရင်းများလည်း သုည ဖြစ်သွားပါမည်။")
+            
+            if st.button("🚨 Reset Entire System & Clear ALL Data 🚨", type="primary", use_container_width=True):
+                with st.spinner("Database တစ်ခုလုံးကို ရှင်းလင်းနေပါသည်။ ခေတ္တစောင့်ပါ..."):
+                    # 1. Inventory ကို ရှင်းလင်းခြင်း
+                    empty_df = pd.DataFrame(columns=['Product ID', 'Product Name', 'Price (MMK)', 'Stock'])
+                    update_inventory_db(empty_df)
+                    
+                    # 2. Sales History ကို ရှင်းလင်းခြင်း
+                    clear_sales_db()
+                    
+                st.success("စနစ်တစ်ခုလုံးရှိ ဒေတာအားလုံးကို အောင်မြင်စွာ ရှင်းလင်းလိုက်ပါပြီ။")
+                time.sleep(2)
                 st.rerun()
 
     # --- 4. MARKET ANALYSIS ---
