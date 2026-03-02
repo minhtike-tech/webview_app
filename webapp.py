@@ -236,7 +236,7 @@ if db:
                     
             st.markdown("---")
             st.markdown("#### အားလုံးကို ဖျက်ရန် (Clear All Data)")
-            st.warning("သတိပြုရန်: ဤခလုတ်ကိုနှိပ်ပါက Inventory (ကုန်ပစ္စည်းများ) နှင့် Sales History (အရောင်းမှတ်တမ်းများ) အားလုံးကို Google Sheet မှ အပြီးတိုင် ဖျက်ပစ်ပါမည်။ Dashboard ရှိ စာရင်းများလည်း သုည ဖြစ်သွားပါမည်။")
+            st.warning("သတိပြုရန်: ဤခလုတ်ကိုနှိပ်ပါက Inventory (ကုန်ပစ္စည်းများ) နှင့် Sales History (အရောင်းမှတ်တမ်းများ) အားလုံးကို အပြီးတိုင် ဖျက်ပစ်ပါမည်။ Dashboard ရှိ စာရင်းများလည်း သုည ဖြစ်သွားပါမည်။")
             
             if st.button("🚨 Reset Entire System & Clear ALL Data 🚨", type="primary", use_container_width=True):
                 with st.spinner("Database တစ်ခုလုံးကို ရှင်းလင်းနေပါသည်။ ခေတ္တစောင့်ပါ..."):
@@ -292,6 +292,7 @@ if db:
 
 else:
     st.error("Database နှင့် မချိတ်ဆက်နိုင်သေးပါ။")
+
 
 
 
