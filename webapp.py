@@ -16,7 +16,6 @@ hide_st_style = """
             <style>
             #MainMenu {visibility: hidden;} /* ညာဘက်အပေါ်က Menu ကို ဖျောက်ရန် */
             footer {visibility: hidden;} /* အောက်ခြေက 'Made with Streamlit' စာသားကို ဖျောက်ရန် */
-            header {visibility: hidden;} /* 'Fork' ခလုတ် ပါဝင်သော Top Header တစ်ခုလုံးကို ဖျောက်ရန် */
             .stDeployButton {display:none;} /* အောက်ခြေက floating deploy button ကို ဖျောက်ရန် */
             </style>
             """
@@ -290,6 +289,7 @@ if db:
 
 else:
     st.error("Database နှင့် မချိတ်ဆက်နိုင်သေးပါ။")
+
 
 
 
