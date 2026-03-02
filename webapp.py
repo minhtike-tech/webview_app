@@ -13,11 +13,13 @@ st.set_page_config(page_title="Khaing's Market Sales", page_icon="🇲🇲", lay
 
 # --- HIDE STREAMLIT UI ---
 # --- HIDE STREAMLIT UI ---
+# --- HIDE STREAMLIT UI ---
 hide_st_style = """
             <style>
-            #MainMenu {visibility: hidden;}
+            /* ညာဘက်အပေါ်ထောင့်ရှိ Fork, GitHub နှင့် Menu များကို ဖျောက်ရန် */
+            [data-testid="stHeaderActionElements"] {display: none;}
+            /* အောက်ခြေရှိ Streamlit Footer ကို ဖျောက်ရန် */
             footer {visibility: hidden;}
-            .stAppDeployButton {display:none;}
             </style>
             """
 st.markdown(hide_st_style, unsafe_allow_html=True)
@@ -290,4 +292,5 @@ if db:
 
 else:
     st.error("Database နှင့် မချိတ်ဆက်နိုင်သေးပါ။")
+
 
